@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ivanjuniordocker/pedelogo-catalogo:1.0.0
+          image: registrykubedev.azurecr.io/pedelogo-catalogo:1.0.0
           ports:
             - containerPort: 80
               name: http
@@ -35,7 +35,8 @@ spec:
                 secretKeyRef:
                   key: MONGO_INITDB_ROOT_PASSWORD
                   name: mongodb-secret
-
+      imagePullSecrets:
+        - name: acr-kubedev
 
 # para utilizar com o ConfigMap
 #            - name: Mongo__User
