@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api-deployment
 spec:
-  replicas: 1
+  replicas: 15
   selector:
     matchLabels:
       app: api
@@ -14,13 +14,37 @@ spec:
     spec:
       containers:
         - name: api
-          image: registrykubedev.azurecr.io/pedelogo-catalogo:1.0.0
+          #image: ivanjuniorregistry.azurecr.io/pedelogo-catalogo:1.0.0
+          image: ivanjuniordocker/pedelogo-catalogo:1.0.0
           ports:
             - containerPort: 80
               name: http
             - containerPort: 443
               name: https
           imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+              scheme: HTTP
+            timeoutSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /read
+              port: 80
+              scheme: HTTP
+            timeoutSeconds: 1
+            failureThreshold: 2
+            periodSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /read
+              port: 80
+              scheme: HTTP
+            failureThreshold: 2
+            periodSeconds: 60
           envFrom:
             - configMapRef:
                 name: api-configmap
@@ -35,8 +59,8 @@ spec:
                 secretKeyRef:
                   key: MONGO_INITDB_ROOT_PASSWORD
                   name: mongodb-secret
-      imagePullSecrets:
-        - name: acr-kubedev
+      #imagePullSecrets:
+      #  - name: registry-secret
 
 # para utilizar com o ConfigMap
 #            - name: Mongo__User
