@@ -360,3 +360,7 @@ MigrationBackup/
 
 #ignoring .old
 *.old
+
+#test files
+prometheus.yaml
+password.txt
