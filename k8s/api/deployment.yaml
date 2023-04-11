@@ -14,7 +14,6 @@ spec:
     spec:
       containers:
         - name: api
-          #image: ivanjuniorregistry.azurecr.io/pedelogo-catalogo:1.0.0
           image: ivanjuniordocker/pedelogo-catalogo:1.0.0
           ports:
             - containerPort: 80
@@ -45,6 +44,13 @@ spec:
               scheme: HTTP
             failureThreshold: 2
             periodSeconds: 60
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "20m"
+            limits:
+              memory: "50Mi"
+              cpu: "20m"
           envFrom:
             - configMapRef:
                 name: api-configmap
@@ -59,17 +65,3 @@ spec:
                 secretKeyRef:
                   key: MONGO_INITDB_ROOT_PASSWORD
                   name: mongodb-secret
-      #imagePullSecrets:
-      #  - name: registry-secret
-
-# para utilizar com o ConfigMap
-#            - name: Mongo__User
-#              valueFrom:
-#                configMapKeyRef:
-#                  key: MONGO_INITDB_ROOT_USERNAME
-#                  name: mongodb-configmap
-#            - name: Mongo_Password
-#              valueFrom:
-#                configMapKeyRef:
-#                  key: MONGO_INITDB_ROOT_PASSWORD
-#                  name: mongodb-configmap
