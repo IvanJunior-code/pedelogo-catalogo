@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api-deployment
 spec:
-  replicas: 15
+  replicas: 1
   selector:
     matchLabels:
       app: api
@@ -14,36 +14,36 @@ spec:
     spec:
       containers:
         - name: api
-          image: ivanjuniordocker/pedelogo-catalogo:1.0.0
+          image: ivanjuniordocker/api-produto:versao-teste
           ports:
             - containerPort: 80
               name: http
             - containerPort: 443
               name: https
-          imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: 80
-              scheme: HTTP
-            timeoutSeconds: 1
-            failureThreshold: 3
-            periodSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /read
-              port: 80
-              scheme: HTTP
-            timeoutSeconds: 1
-            failureThreshold: 2
-            periodSeconds: 5
-          startupProbe:
-            httpGet:
-              path: /read
-              port: 80
-              scheme: HTTP
-            failureThreshold: 2
-            periodSeconds: 60
+          # imagePullPolicy: Always
+          # livenessProbe:
+          #   httpGet:
+          #     path: /health
+          #     port: 80
+          #     scheme: HTTP
+          #   timeoutSeconds: 1
+          #   failureThreshold: 3
+          #   periodSeconds: 5
+          # readinessProbe:
+          #   httpGet:
+          #     path: /read
+          #     port: 80
+          #     scheme: HTTP
+          #   timeoutSeconds: 1
+          #   failureThreshold: 2
+          #   periodSeconds: 5
+          # startupProbe:
+          #   httpGet:
+          #     path: /read
+          #     port: 80
+          #     scheme: HTTP
+          #   failureThreshold: 2
+          #   periodSeconds: 60
           resources:
             requests:
               memory: "50Mi"
