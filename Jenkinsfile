@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     dockerapp = docker.build("ivanjuniordocker/api-produto:${env.BUILD_ID}",
-                      '-f ./src/Pedelogo.Catalogo.Api/Dockerfile .')
+                      '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                 }
             }
         }
