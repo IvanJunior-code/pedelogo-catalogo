@@ -49,7 +49,7 @@ pipeline {
                     //sh 'sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl'
                     sh 'chmod u+x ./kubectl'
                     withKubeConfig([credentialsId: 'kube']) {
-                        sh 'kubectl apply -f ./k8s/ -R'
+                        sh './kubectl apply -f ./k8s/ -R'
                     }
                 }
             }
