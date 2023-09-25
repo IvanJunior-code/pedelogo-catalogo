@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: ivanjuniordocker/api-produto:versao-teste
+          image: ivanjuniordocker/api-produto:{{tag}}
           ports:
             - containerPort: 80
               name: http
